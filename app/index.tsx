@@ -1,22 +1,31 @@
-import { PrimaryButton } from "@/components/ui/buttons";
-import { Text, View } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
+import { useRouter } from "expo-router";
+import { useEffect } from "react";
+import { useTheme } from "@/theme/ThemeProvider";
 
-export default function Index() {
+export default function Splash() {
+  const router = useRouter();
+  const { colors } = useTheme();
+
+  useEffect(() => {
+    setTimeout(() => {
+      router.replace("/(auth)/onboarding");
+    }, 3500);
+  }, []);
+
   return (
     <View
       style={{
         flex: 1,
-        justifyContent: "center",
+        backgroundColor: colors.primary,
         alignItems: "center",
+        justifyContent: "center",
       }}
     >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-      <PrimaryButton
-        onPress={() => {
-          console.log("button clicked")
-        }}
-        label="Primary Button"
-      />
+      <Text style={{ color: "#FFF", fontSize: 28, fontWeight: "700" }}>
+        FixAm
+      </Text>
+      <ActivityIndicator color="#FFF" style={{ marginTop: 16 }} />
     </View>
   );
 }
