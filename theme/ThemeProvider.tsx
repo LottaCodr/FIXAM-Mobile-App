@@ -1,4 +1,4 @@
-import React, { createContext, useMemo } from "react";
+import React, { createContext, useContext, useMemo } from "react";
 import { Theme, lightTheme } from "./theme";
 
 type ThemeContextType = Theme;
@@ -18,4 +18,15 @@ export const ThemeProvider = ({
             {children}
         </ThemeContext.Provider>
     )
+};
+
+
+export const useTheme = (): ThemeContextType => {
+    const context = useContext(ThemeContext);;
+
+    if (!context) {
+        throw new Error("useTheme must be used within a ThemProvider")
+    }
+
+    return context
 }
