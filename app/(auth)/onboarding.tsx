@@ -8,12 +8,12 @@ export default function Onboarding() {
     const { spacing } = useTheme();
 
     return (
-        <View style={{ flex: 1, padding: spacing.xl }}>
+        <View style={{ flex: 1, padding: spacing[10] }}>
             <Text style={{ fontSize: 24, fontWeight: "700" }}>
                 Trusted artisans, when you need them.
             </Text>
 
-            <Text style={{ marginTop: spacing.md, fontSize: 16 }}>
+            <Text style={{ marginTop: spacing[5], fontSize: 16 }}>
                 Find verified plumbers, electricians, and more near you.
             </Text>
 
