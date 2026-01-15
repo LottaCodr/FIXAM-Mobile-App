@@ -38,9 +38,9 @@ export default function TabsLayout() {
         <Tabs screenOptions={{
             headerShown: false,
             tabBarActiveTintColor: theme.colors.primary,
-            tabBarInactiveTintColor: theme.colors.background,
+            tabBarInactiveTintColor: theme.colors.neutral[400],
             tabBarStyle: {
-                borderTopColor: theme.colors.border
+                borderTopColor: theme.colors.neutral[200]
             }
         }}>
             {TAB_CONFIG.map(({ name, title, icon, activeIcon }) => (
