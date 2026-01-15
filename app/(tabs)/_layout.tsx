@@ -33,14 +33,14 @@ const TAB_CONFIG: TabConfig[] = [
 ];
 
 export default function TabsLayout() {
-    const theme = useTheme();
+    const { colors: theme } = useTheme();
     return (
         <Tabs screenOptions={{
             headerShown: false,
-            tabBarActiveTintColor: theme.colors.primary,
-            tabBarInactiveTintColor: theme.colors.neutral[400],
+            tabBarActiveTintColor: theme.primary,
+            tabBarInactiveTintColor: theme.neutral[400],
             tabBarStyle: {
-                borderTopColor: theme.colors.neutral[200]
+                borderTopColor: theme.neutral[200]
             }
         }}>
             {TAB_CONFIG.map(({ name, title, icon, activeIcon }) => (

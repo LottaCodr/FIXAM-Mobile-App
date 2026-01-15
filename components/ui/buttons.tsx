@@ -18,7 +18,7 @@ export const PrimaryButton = ({ label, onPress }: ButtonType) => {
                 borderRadius: radius.md,
                 alignItems: "center",
                 justifyContent: "center",
-                paddingHorizontal: spacing.lg,
+                paddingHorizontal: spacing[10],
             }}
         >
             <Text

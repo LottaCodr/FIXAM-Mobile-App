@@ -30,12 +30,12 @@ export const Input = ({
     const borderColor = error ? colors.error : colors.border;
 
     return (
-        <View style={{ marginBottom: spacing.lg }}>
+        <View style={{ marginBottom: spacing[10] }}>
             {/* Label */}
             {label && (
                 <Text
                     style={{
-                        marginBottom: spacing.xs,
+                        marginBottom: spacing[8],
                         fontSize: typography.fontSize.sm,
                         color: colors.textPrimary,
                         fontWeight: String(typography.weight.medium) as any,
@@ -54,7 +54,7 @@ export const Input = ({
                         borderWidth: 1,
                         borderColor,
                         borderRadius: radius.md,
-                        paddingHorizontal: spacing.md,
+                        paddingHorizontal: spacing[4],
                         backgroundColor: colors.surface,
                         fontSize: typography.fontSize.md,
                         color: colors.textPrimary,
@@ -68,7 +68,7 @@ export const Input = ({
             {(error || helperText) && (
                 <Text
                     style={{
-                        marginTop: spacing.xs,
+                        marginTop: spacing[4],
                         fontSize: typography.fontSize.xs,
                         color: error ? colors.error : colors.textSecondary,
                     }}
