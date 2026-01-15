@@ -11,16 +11,17 @@ export function CategoryCard({ title, icon: Icon, color }: any) {
                 backgroundColor: colors.surface,
                 borderRadius: radius.lg,
                 padding: spacing[5],
-                marginBottom: spacing[5],
-                marginRight: "4%",
+                marginBottom: spacing[4],
+                borderWidth: 1,
+                borderColor: colors.border,
             }}
         >
             <View
                 style={{
                     width: 40,
                     height: 40,
-                    borderRadius: 12,
-                    backgroundColor: color,
+                    borderRadius: radius.md,
+                    backgroundColor: bg,
                     alignItems: "center",
                     justifyContent: "center",
                     marginBottom: spacing[3],
@@ -31,9 +32,8 @@ export function CategoryCard({ title, icon: Icon, color }: any) {
 
             <Text
                 style={{
-                    fontFamily: typography.fontFamily.medium,
                     fontSize: typography.fontSize.md,
-                    lineHeight: typography.lineHeight.md,
+                    fontWeight: typography.weight.medium,
                     color: colors.textPrimary,
                 }}
             >

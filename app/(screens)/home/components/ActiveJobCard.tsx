@@ -8,13 +8,13 @@ export function ActiveJobCard() {
     return (
         <View
             style={{
-                backgroundColor: colors.success,
+                backgroundColor: colors.primaryLight,
                 borderRadius: radius.lg,
                 padding: spacing[5],
                 flexDirection: "row",
                 justifyContent: "space-between",
                 alignItems: "center",
-                marginBottom: spacing[5],
+                marginBottom: spacing[6],
             }}
         >
             <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -22,11 +22,11 @@ export function ActiveJobCard() {
                     style={{
                         width: 44,
                         height: 44,
-                        borderRadius: 22,
+                        borderRadius: radius.full,
                         backgroundColor: colors.primary,
                         alignItems: "center",
                         justifyContent: "center",
-                        marginRight: spacing[3],
+                        marginRight: spacing[4],
                     }}
                 >
                     <Ionicons name="notifications-outline" size={20} color="#fff" />
@@ -35,9 +35,8 @@ export function ActiveJobCard() {
                 <View>
                     <Text
                         style={{
-                            fontFamily: typography.fontFamily.medium,
                             fontSize: typography.fontSize.md,
-                            lineHeight: typography.lineHeight.md,
+                            fontWeight: typography.weight.medium,
                             color: colors.textPrimary,
                         }}
                     >
@@ -46,10 +45,9 @@ export function ActiveJobCard() {
 
                     <Text
                         style={{
-                            fontFamily: typography.fontFamily.regular,
+                            marginTop: spacing[1],
                             fontSize: typography.fontSize.sm,
-                            lineHeight: typography.lineHeight.sm,
-                            color: colors.textMuted,
+                            color: colors.textSecondary,
                         }}
                     >
                         Arriving in approx. 12 mins
@@ -60,16 +58,16 @@ export function ActiveJobCard() {
             <TouchableOpacity
                 style={{
                     backgroundColor: colors.primary,
-                    paddingHorizontal: spacing[8],
-                    paddingVertical: spacing[8],
+                    paddingHorizontal: spacing[4],
+                    paddingVertical: spacing[2],
                     borderRadius: radius.full,
                 }}
             >
                 <Text
                     style={{
-                        fontFamily: typography.fontFamily.medium,
-                        fontSize: typography.fontSize.sm,
                         color: "#fff",
+                        fontSize: typography.fontSize.sm,
+                        fontWeight: typography.weight.medium,
                     }}
                 >
                     Track
