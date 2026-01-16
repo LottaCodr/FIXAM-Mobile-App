@@ -19,7 +19,7 @@ export function SearchBar() {
                 borderColor: colors.border,
             }}
         >
-            <Ionicons size={18} name="search" color={colors.textMuted} />
+            <Ionicons size={18} name="search" color={colors.textSecondary} />
 
             <TextInput
                 placeholder="Search for a service"

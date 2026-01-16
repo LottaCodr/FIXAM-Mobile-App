@@ -1,6 +1,6 @@
-import { View, Text, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@/theme/ThemeProvider";
+import { Ionicons } from "@expo/vector-icons";
+import { Text, TouchableOpacity, View } from "react-native";
 
 export function ActiveJobCard() {
     const { colors, spacing, radius, typography } = useTheme();
@@ -11,13 +11,11 @@ export function ActiveJobCard() {
                 backgroundColor: colors.primaryLight,
                 borderRadius: radius.lg,
                 padding: spacing[5],
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
                 marginBottom: spacing[6],
+                minWidth: 0,
             }}
         >
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <View style={{ flexDirection: "row", alignItems: "center", minWidth: 0 }}>
                 <View
                     style={{
                         width: 44,
@@ -27,17 +25,20 @@ export function ActiveJobCard() {
                         alignItems: "center",
                         justifyContent: "center",
                         marginRight: spacing[4],
+                        flexShrink: 0,
                     }}
                 >
                     <Ionicons name="notifications-outline" size={20} color="#fff" />
                 </View>
 
-                <View>
+                <View style={{ minWidth: 0, flex: 1 }}>
                     <Text
                         style={{
                             ...typography.h3,
                             color: colors.textPrimary,
                         }}
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
                     >
                         Plumber is on the way
                     </Text>
@@ -48,29 +49,34 @@ export function ActiveJobCard() {
                             ...typography.caption,
                             color: colors.textSecondary,
                         }}
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
                     >
                         Arriving in approx. 12 mins
                     </Text>
                 </View>
-            </View>
-
-            <TouchableOpacity
-                style={{
-                    backgroundColor: colors.primary,
-                    paddingHorizontal: spacing[4],
-                    paddingVertical: spacing[2],
-                    borderRadius: radius.full,
-                }}
-            >
-                <Text
+                <TouchableOpacity
                     style={{
-                        ...typography.button,
-                        color: "#fff",
+                        backgroundColor: colors.primary,
+                        paddingHorizontal: spacing[4],
+                        paddingVertical: spacing[2],
+                        borderRadius: radius.full,
+                        marginLeft: spacing[3],
+                        flexShrink: 1,
                     }}
                 >
-                    Track
-                </Text>
-            </TouchableOpacity>
+                    <Text
+                        style={{
+                            ...typography.button,
+                            color: "#fff",
+                        }}
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                    >
+                        Track
+                    </Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }

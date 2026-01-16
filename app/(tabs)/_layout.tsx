@@ -14,21 +14,25 @@ const TAB_CONFIG: TabConfig[] = [
         name: "home",
         title: "Home",
         icon: "home-outline",
+        activeIcon: "home",
     },
     {
         name: "jobs",
         title: "Jobs",
         icon: "briefcase-outline",
+        activeIcon: "briefcase",
     },
     {
         name: "messages",
         title: "Messages",
         icon: "chatbubble-outline",
+        activeIcon: "chatbubble",
     },
     {
         name: "profile",
         title: "Profile",
         icon: "person-outline",
+        activeIcon: "person",
     },
 ];
 
@@ -59,8 +63,6 @@ export default function TabsLayout() {
                     }}
                 />
             ))}
-
-
         </Tabs>
     );
 }

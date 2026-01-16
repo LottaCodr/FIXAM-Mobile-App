@@ -31,7 +31,7 @@ export function CategoryCard({ title, icon, color }: any) {
                 <Ionicons
                     name={icon}
                     size={18}
-                    color={colors.textPrimary}
+                    color={color}
                 />
             </View>
 
