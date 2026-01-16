@@ -35,8 +35,7 @@ export function ActiveJobCard() {
                 <View>
                     <Text
                         style={{
-                            fontSize: typography.fontSize.md,
-                            fontWeight: typography.weight.medium,
+                            ...typography.h3,
                             color: colors.textPrimary,
                         }}
                     >
@@ -46,7 +45,7 @@ export function ActiveJobCard() {
                     <Text
                         style={{
                             marginTop: spacing[1],
-                            fontSize: typography.fontSize.sm,
+                            ...typography.caption,
                             color: colors.textSecondary,
                         }}
                     >
@@ -65,9 +64,8 @@ export function ActiveJobCard() {
             >
                 <Text
                     style={{
+                        ...typography.button,
                         color: "#fff",
-                        fontSize: typography.fontSize.sm,
-                        fontWeight: typography.weight.medium,
                     }}
                 >
                     Track

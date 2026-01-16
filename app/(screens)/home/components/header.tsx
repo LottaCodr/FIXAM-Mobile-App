@@ -31,11 +31,8 @@ export function Header() {
                 <View>
                     <Text
                         style={{
-                            
-                            fontSize: typography.fontSize.sm,
-                            lineHeight: typography.lineHeight.sm,
+                            ...typography.caption,
                             color: colors.textMuted,
-                            fontWeight: typography.weight.regular,
                         }}
                     >
                         Welcome back
@@ -43,10 +40,8 @@ export function Header() {
 
                     <Text
                         style={{
-                            fontSize: typography.fontSize.lg,
-                            lineHeight: typography.lineHeight.lg,
+                            ...typography.h2,
                             color: colors.textPrimary,
-                            fontWeight: typography.weight.bold,
                         }}
                     >
                         Hi, Lotanna 👋
@@ -66,5 +61,6 @@ export function Header() {
             >
                 <Ionicons size={20} name="notifications-outline" color={colors.textPrimary} />
             </TouchableOpacity>
-        </View>)
+        </View>
+    );
 }

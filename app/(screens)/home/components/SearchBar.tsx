@@ -5,22 +5,6 @@ import { useTheme } from "@/theme/ThemeProvider";
 export function SearchBar() {
     const { colors, spacing, radius, typography } = useTheme();
 
-    // Map to the allowed fontWeight value if necessary
-    // Commonly "regular" maps to "400"
-    const mapFontWeight = (weight: any) => {
-        if (weight === "regular") return "400";
-        if (
-            [
-                "100", "200", "300", "400", "500", "600", "700", "800", "900",
-                100, 200, 300, 400, 500, 600, 700, 800, 900,
-                "normal", "bold", "light", "ultralight", "thin", "medium", "semibold", "heavy", "black"
-            ].includes(weight)
-        ) {
-            return weight;
-        }
-        return undefined;
-    };
-
     return (
         <View
             style={{
@@ -43,8 +27,8 @@ export function SearchBar() {
                 style={{
                     marginLeft: spacing[3],
                     flex: 1,
-                    fontSize: typography.fontSize.md,
-                    fontWeight: mapFontWeight(typography.weight.regular) as any,
+                    fontSize: typography.body.fontSize,
+                    fontWeight: typography.body.fontWeight as any,
                     color: colors.textPrimary,
                 }}
             />

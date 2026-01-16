@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from 'react-native'
+import { View, Text, ScrollView, FlatList } from 'react-native'
 import React from 'react'
 import { Screen } from '@/components/layout/Screen'
 import { useTheme } from '@/theme/ThemeProvider'
@@ -30,15 +30,35 @@ const {spacing} = useTheme()
                           marginVertical: spacing[8],
                       }}
                   >
-                      <Text >Categories</Text>
-                      <Text >See All</Text>
+                      <Text
+                          style={{
+                              fontSize: spacing[4], // or use typography.fontSize.lg if available from useTheme
+                              fontWeight: 'bold',
+                              color: '#222', // replace with colors.textPrimary if defined: colors.textPrimary,
+                          }}
+                      >
+                          Categories
+                      </Text>
+                      <Text
+                          style={{
+                              fontSize: spacing[3], // or use typography.fontSize.md if available
+                              fontWeight: '500',
+                              color: '#888', // replace with colors.primary or colors.textSecondary if defined
+                          }}
+                      >
+                          See All
+                      </Text>
                   </View>
 
-                  {/* <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                      {Categories.map((item) => (
-                          <CategoryCard key={item.id} {...item} />
-                      ))}
-                  </View> */}
+                  <FlatList
+                      data={Categories}
+                      renderItem={({ item }) => <CategoryCard {...item} />}
+                      keyExtractor={(item) => item.id}
+                      numColumns={2}
+                      columnWrapperStyle={{ justifyContent: "space-between" }}
+                      showsVerticalScrollIndicator={false}
+                      scrollEnabled={false}
+                  />
 
                   <ReferCard />
               </View>

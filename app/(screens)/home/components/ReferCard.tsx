@@ -9,16 +9,15 @@ export function ReferCard() {
             style={{
                 backgroundColor: colors.primary,
                 borderRadius: radius.lg,
-                padding: spacing[8],
-                marginTop: spacing[8],
+                padding: spacing[6],
+                marginTop: spacing[6],
             }}
         >
             <Text
                 style={{
-                    fontFamily: typography.fontFamily.bold,
-                    fontSize: typography.fontSize.lg,
-                    lineHeight: typography.lineHeight.lg,
+                    ...typography.h2,
                     color: "#fff",
+                    marginBottom: spacing[2],
                 }}
             >
                 Refer a Friend
@@ -26,11 +25,9 @@ export function ReferCard() {
 
             <Text
                 style={{
-                    fontFamily: typography.fontFamily.regular,
-                    fontSize: typography.fontSize.md,
-                    lineHeight: typography.lineHeight.md,
+                    ...typography.body,
                     color: "#fff",
-                    marginTop: spacing[3],
+                    lineHeight: typography.body.lineHeight ? typography.body.lineHeight * 1.2 : 22 * 1.2,
                 }}
             >
                 Get ₦2,000 off your next repair when you refer someone.

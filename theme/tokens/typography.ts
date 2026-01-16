@@ -1,29 +1,40 @@
-export const typography = {
-    fontFamily: {
-        regular: "System",
-        medium: "System",
-        bold: "System",
-    },
+import { TextStyle } from "react-native";
 
-    fontSize: {
-        xs: 12,
-        sm: 14,
-        md: 16,
-        lg: 18,
-        xl: 22,
-        "2xl": 26,
-    },
+type FontVariant = 'h1' | 'h2' | 'h3' | 'body' | 'caption' | 'button';
 
-    lineHeight: {
-        sm: 18,
-        md: 22,
-        lg: 26,
-        xl: 30,
-    },
+type TypographyVariants = {
+    [key in FontVariant]: TextStyle;
+};
 
-    weight: {
-        regular: "400",
-        medium: "500",
-        bold: "700",
+export const typography: TypographyVariants = {
+    h1: {
+        fontSize: 26,
+        lineHeight: 32,
+        fontWeight: "700",
+    },
+    h2: {
+        fontSize: 22,
+        lineHeight: 28,
+        fontWeight: "700",
+    },
+    h3: {
+        fontSize: 18,
+        lineHeight: 24,
+        fontWeight: "700",
+    },
+    body: {
+        fontSize: 16,
+        lineHeight: 22,
+        fontWeight: "400",
+    },
+    caption: {
+        fontSize: 14,
+        lineHeight: 18,
+        fontWeight: "400",
+    },
+    button: {
+        fontSize: 16,
+        lineHeight: 22,
+        fontWeight: "500",
     },
 };

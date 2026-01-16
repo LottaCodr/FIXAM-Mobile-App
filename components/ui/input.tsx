@@ -36,9 +36,9 @@ export const Input = ({
                 <Text
                     style={{
                         marginBottom: spacing[8],
-                        fontSize: typography.fontSize.sm,
+                        ...typography.caption,
                         color: colors.textPrimary,
-                        fontWeight: String(typography.weight.medium) as any,
+                        // fontWeight already in typography.caption; no need for override
                     }}
                 >
                     {label}
@@ -56,7 +56,7 @@ export const Input = ({
                         borderRadius: radius.md,
                         paddingHorizontal: spacing[4],
                         backgroundColor: colors.surface,
-                        fontSize: typography.fontSize.md,
+                        ...typography.body,
                         color: colors.textPrimary,
                     },
                     style,
@@ -69,7 +69,7 @@ export const Input = ({
                 <Text
                     style={{
                         marginTop: spacing[4],
-                        fontSize: typography.fontSize.xs,
+                        ...typography.caption,
                         color: error ? colors.error : colors.textSecondary,
                     }}
                 >

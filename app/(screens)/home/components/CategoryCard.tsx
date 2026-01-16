@@ -1,7 +1,8 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { useTheme } from "@/theme/ThemeProvider";
+import { Ionicons } from "@expo/vector-icons";
 
-export function CategoryCard({ title, icon: Icon, color }: any) {
+export function CategoryCard({ title, icon, color }: any) {
     const { spacing, radius, typography, colors } = useTheme();
 
     return (
@@ -21,19 +22,22 @@ export function CategoryCard({ title, icon: Icon, color }: any) {
                     width: 40,
                     height: 40,
                     borderRadius: radius.md,
-                    backgroundColor: bg,
+                    backgroundColor: colors.background,
                     alignItems: "center",
                     justifyContent: "center",
                     marginBottom: spacing[3],
                 }}
             >
-                <Icon size={18} color={colors.textPrimary} />
+                <Ionicons
+                    name={icon}
+                    size={18}
+                    color={colors.textPrimary}
+                />
             </View>
 
             <Text
                 style={{
-                    fontSize: typography.fontSize.md,
-                    fontWeight: typography.weight.medium,
+                    ...typography.body,
                     color: colors.textPrimary,
                 }}
             >
