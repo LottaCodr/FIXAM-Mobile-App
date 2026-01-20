@@ -39,9 +39,9 @@ export function ArtisanCard({ artisan }: { artisan: Artisan }) {
             <View style={{ flex: 1 }}>
                 <Text
                     style={{
-                        // fontSize: theme.typography.caption,
-                        // fontWeight: theme.typography.caption,
-                        // color: theme.colors.textPrimary,
+                        fontSize: theme.typography.caption.fontSize,
+                        fontWeight: theme.typography.caption.fontWeight,
+                        color: theme.colors.textPrimary,
                     }}
                 >
                     {artisan.name}
@@ -49,9 +49,9 @@ export function ArtisanCard({ artisan }: { artisan: Artisan }) {
 
                 <Text
                     style={{
-                        // fontSize: theme.typography.caption,
-                        // color: theme.colors.textSecondary,
-                        // marginTop: theme.spacing[1],
+                        fontSize: theme.typography.caption,
+                        color: theme.colors.textSecondary,
+                        marginTop: theme.spacing[1],
                     }}
                 >
                     {artisan.skill}
@@ -74,8 +74,8 @@ export function ArtisanCard({ artisan }: { artisan: Artisan }) {
 
                     <Text
                         style={{
-                            // color: theme.colors.primary,
-                            // fontWeight: theme.typography.caption,
+                            color: theme.colors.primary,
+                            fontWeight: theme.typography.caption.fontWeight,
                         }}
                     >
                         ₦{artisan.price}

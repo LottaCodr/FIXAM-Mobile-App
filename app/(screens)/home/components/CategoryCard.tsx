@@ -16,6 +16,7 @@ export function CategoryCard({ title, icon, color, categoryId }: Props) {
 
     const handleGoToCategory = () => {
         router.push({
+
             pathname: "/category/[categoryId]",
             params: { categoryId },
         });
@@ -55,7 +56,7 @@ export function CategoryCard({ title, icon, color, categoryId }: Props) {
 
             <Text
                 style={{
-                    ...typography.body,
+                    // ...typography.body,
                     color: colors.textPrimary,
                 }}
             >
