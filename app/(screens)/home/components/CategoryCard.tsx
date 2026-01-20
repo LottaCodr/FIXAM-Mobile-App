@@ -1,12 +1,30 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { useTheme } from "@/theme/ThemeProvider";
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 
-export function CategoryCard({ title, icon, color }: any) {
+type Props = {
+    title: string;
+    icon: any;
+    color: string;
+    categoryId: string;
+}
+
+export function CategoryCard({ title, icon, color, categoryId }: Props) {
     const { spacing, radius, typography, colors } = useTheme();
+    const router = useRouter();
+
+    const handleGoToCategory = () => {
+        router.push({
+            pathname: "/category/[categoryId]",
+            params: { categoryId },
+        });
+    }
+
 
     return (
         <TouchableOpacity
+            onPress={handleGoToCategory}
             style={{
                 width: "48%",
                 backgroundColor: colors.surface,

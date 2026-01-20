@@ -27,8 +27,12 @@ const MOCK_ARTISANS = [
 ];
 
 export default function CategoryArtisansScreen() {
-    const { categoryId } = useLocalSearchParams();
+    const { category } = useLocalSearchParams<{ category?: string}>();
     const theme = useTheme();
+
+    const categorySlug = Array.isArray(category)
+        ? category[0]
+        : category;
 
     return (
         <View
