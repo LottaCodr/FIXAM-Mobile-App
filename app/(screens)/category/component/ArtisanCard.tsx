@@ -1,6 +1,5 @@
-import { View, Image, Pressable } from "react-native";
-import { Text } from "react-native";
 import { useTheme } from "@/theme/ThemeProvider";
+import { Image, Pressable, Text, View } from "react-native";
 
 type Artisan = {
     id: string;
@@ -40,9 +39,9 @@ export function ArtisanCard({ artisan }: { artisan: Artisan }) {
             <View style={{ flex: 1 }}>
                 <Text
                     style={{
-                        fontSize: theme.typography.caption,
-                        fontWeight: theme.typography.caption,
-                        color: theme.colors.textPrimary,
+                        // fontSize: theme.typography.caption,
+                        // fontWeight: theme.typography.caption,
+                        // color: theme.colors.textPrimary,
                     }}
                 >
                     {artisan.name}
@@ -50,9 +49,9 @@ export function ArtisanCard({ artisan }: { artisan: Artisan }) {
 
                 <Text
                     style={{
-                        fontSize: theme.typography.caption,
-                        color: theme.colors.textSecondary,
-                        marginTop: theme.spacing[1],
+                        // fontSize: theme.typography.caption,
+                        // color: theme.colors.textSecondary,
+                        // marginTop: theme.spacing[1],
                     }}
                 >
                     {artisan.skill}
@@ -75,8 +74,8 @@ export function ArtisanCard({ artisan }: { artisan: Artisan }) {
 
                     <Text
                         style={{
-                            color: theme.colors.primary,
-                            fontWeight: theme.typography.caption,
+                            // color: theme.colors.primary,
+                            // fontWeight: theme.typography.caption,
                         }}
                     >
                         ₦{artisan.price}

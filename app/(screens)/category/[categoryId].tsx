@@ -1,4 +1,4 @@
-import { View, FlatList, Pressable, Image, Text } from "react-native";
+import { View, FlatList,  Text } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useTheme } from "@/theme/ThemeProvider";
 import { FilterPills } from "./component/FilterPills";
