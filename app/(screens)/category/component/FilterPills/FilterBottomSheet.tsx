@@ -9,6 +9,11 @@ export default function FilterBottomSheet({ onClose }: { onClose: () => void }) 
     const { spacing, colors, radius, typography } = useTheme();
     const setFilters = useArtisanStore((s) => s.setFilters)
 
+    const handleFilterOnPress = () => {
+        setFilters({ maxDistance: 5 });
+        onClose();
+    }
+
     return (
         <View
             style={{
@@ -20,10 +25,7 @@ export default function FilterBottomSheet({ onClose }: { onClose: () => void }) 
         >
             <Text style={{ fontSize: typography.body }}>Filters</Text>
 
-            <Pressable onPress={() => {
-                setFilters({ maxDistance: 5 });
-                onClose();
-            }}>
+            <Pressable onPress={handleFilterOnPress}>
                 <Text>Within 5km</Text>
             </Pressable>
         </View>
