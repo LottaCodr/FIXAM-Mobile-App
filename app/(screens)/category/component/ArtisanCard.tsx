@@ -1,5 +1,5 @@
 import { useTheme } from "@/theme/ThemeProvider";
-import { Image, Pressable, Text, View } from "react-native";
+import { Image, Pressable, Text, View, TouchableOpacity } from "react-native";
 
 type Artisan = {
     id: string;
@@ -63,6 +63,7 @@ export function ArtisanCard({ artisan }: { artisan: Artisan }) {
                         flexDirection: "row",
                         marginTop: theme.spacing[2],
                         justifyContent: "space-between",
+                        alignItems: 'center',
                     }}
                 >
                     <Text style={{ color: theme.colors.textMuted }}>
@@ -82,6 +83,28 @@ export function ArtisanCard({ artisan }: { artisan: Artisan }) {
                         ₦{artisan.price}
                     </Text>
                 </View>
+                <TouchableOpacity
+                    style={{
+                        marginTop: theme.spacing[3],
+                        paddingVertical: theme.spacing[1],
+                        paddingHorizontal: theme.spacing[4],
+                        backgroundColor: theme.colors.primary,
+                        borderRadius: theme.radius.md,
+                        alignSelf: "flex-end",
+                    }}
+                    // onPress handler can be replaced with real action
+                    onPress={() => {}}
+                >
+                    <Text
+                        style={{
+                            color: theme.colors.neutral[100],
+                            fontWeight: 'bold',
+                            fontSize: theme.typography.button?.fontSize || theme.typography.caption.fontSize,
+                        }}
+                    >
+                        Request
+                    </Text>
+                </TouchableOpacity>
             </View>
         </Pressable>
     );
