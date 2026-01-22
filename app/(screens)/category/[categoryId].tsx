@@ -1,8 +1,9 @@
-import { View, FlatList,  Text } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+import { Screen } from "@/components/layout/Screen";
 import { useTheme } from "@/theme/ThemeProvider";
-import { FilterPills } from "./component/FilterPills";
+import { useLocalSearchParams } from "expo-router";
+import { FlatList, ScrollView, View } from "react-native";
 import { ArtisanCard } from "./component/ArtisanCard";
+import { FilterPills } from "./component/FilterPills";
 
 
 const MOCK_ARTISANS = [
@@ -27,7 +28,7 @@ const MOCK_ARTISANS = [
 ];
 
 export default function CategoryArtisansScreen() {
-    const { category } = useLocalSearchParams<{ category?: string}>();
+    const { category } = useLocalSearchParams<{ category?: string }>();
     const theme = useTheme();
 
     const categorySlug = Array.isArray(category)
@@ -35,27 +36,37 @@ export default function CategoryArtisansScreen() {
         : category;
 
     return (
-        <View
-            style={{
-                flex: 1,
-                backgroundColor: theme.colors.background,
-                paddingHorizontal: theme.spacing[4],
-                paddingTop: theme.spacing[4],
-            }}
-        >
-            {/* Filter Pills */}
-            <FilterPills />
-
-            {/* Artisan List */}
-            <FlatList
-                data={MOCK_ARTISANS}
-                keyExtractor={(item) => item.id}
+        <Screen padded={false}>
+            <ScrollView
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ paddingBottom: theme.spacing[8] }}
-                renderItem={({ item }) => (
-                    <ArtisanCard artisan={item} />
-                )}
-            />
-        </View>
+                contentContainerStyle={{ paddingBottom: theme.spacing[2] }}
+            >
+
+
+                <View
+                    style={{
+                        flex: 1,
+                        backgroundColor: theme.colors.background,
+                        paddingHorizontal: theme.spacing[4],
+                        paddingTop: theme.spacing[4],
+                    }}
+                >
+                    {/* Filter Pills */}
+                    <FilterPills />
+
+                    {/* Artisan List */}
+                    <FlatList
+                        data={MOCK_ARTISANS}
+                        scrollEnabled={false}
+                        keyExtractor={(item) => item.id}
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{ paddingBottom: theme.spacing[8] }}
+                        renderItem={({ item }) => (
+                            <ArtisanCard artisan={item} />
+                        )}
+                    />
+                </View>
+            </ScrollView>
+        </Screen>
     );
 }
