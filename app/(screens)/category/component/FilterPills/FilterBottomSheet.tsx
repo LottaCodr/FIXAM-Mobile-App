@@ -23,7 +23,7 @@ export default function FilterBottomSheet({ onClose }: { onClose: () => void }) 
                 borderTopRightRadius: radius.xl
             }}
         >
-            <Text style={{ fontSize: typography.body }}>Filters</Text>
+            <Text style={{ fontSize: typography.body.fontSize }}>Filters</Text>
 
             <Pressable onPress={handleFilterOnPress}>
                 <Text>Within 5km</Text>

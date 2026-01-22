@@ -29,9 +29,9 @@ export function FilterPills() {
                 >
                     <Text
                         style={{
-                            fontSize: theme.typography.button,
+                            fontSize: typeof theme.typography.button === "number" ? theme.typography.button : 16,
                             color: theme.colors.textPrimary,
-                            fontWeight: theme.typography.button,
+                            fontWeight: typeof theme.typography.button === "string" ? theme.typography.button : "500",
                         }}
                     >
                         {filter}

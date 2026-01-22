@@ -49,7 +49,8 @@ export function ArtisanCard({ artisan }: { artisan: Artisan }) {
 
                 <Text
                     style={{
-                        fontSize: theme.typography.caption,
+                        fontSize: theme.typography.caption.fontSize,
+                        fontWeight: theme.typography.caption.fontWeight,
                         color: theme.colors.textSecondary,
                         marginTop: theme.spacing[1],
                     }}
