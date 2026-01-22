@@ -1,5 +1,6 @@
 import { useTheme } from "@/theme/ThemeProvider";
-import { Image, Pressable, Text, View, TouchableOpacity } from "react-native";
+import { router } from "expo-router";
+import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
 
 type Artisan = {
     id: string;
@@ -14,8 +15,12 @@ type Artisan = {
 export function ArtisanCard({ artisan }: { artisan: Artisan }) {
     const theme = useTheme();
 
+    const handleRedirectToProfile = () => {
+        router.push(`/artisan/artisan.profile`)
+    }
+
     return (
-        <Pressable
+        <Pressable onPress={handleRedirectToProfile}
             style={{
                 flexDirection: "row",
                 backgroundColor: theme.colors.surface,
@@ -93,7 +98,7 @@ export function ArtisanCard({ artisan }: { artisan: Artisan }) {
                         alignSelf: "flex-end",
                     }}
                     // onPress handler can be replaced with real action
-                    onPress={() => {}}
+                    onPress={() => { }}
                 >
                     <Text
                         style={{
