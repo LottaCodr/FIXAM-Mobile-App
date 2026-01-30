@@ -14,43 +14,40 @@ export default function ArtisanProfileScreen() {
 
     return (
         <Screen padded={false}>
+            <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ paddingBottom: theme.spacing[2] }}
+                    contentContainerStyle={{
+                        paddingBottom: 140,
+                        
+ }}
             >
-                <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
                     {/* Header Image */}
                     <View style={{ height: 260, position: "relative" }}>
-                        {/* Improved Image: Slight overlay, border, fallback, smooth loading */}
+                        
                         <Image
                             source={{
-                                uri: "https://randomuser.me/api/portraits/men/75.jpg", // using a more realistic varied image
+                                uri: "https://randomuser.me/api/portraits/men/75.jpg", 
                             }}
                             style={{
                                 width: "100%",
                                 height: "100%",
-                                borderTopLeftRadius: 24,
-                                borderTopRightRadius: 24,
-                                borderBottomLeftRadius: 0,
-                                borderBottomRightRadius: 0,
+                               
                             }}
                             resizeMode="cover"
                             
                             fadeDuration={250}
                         />
-                        {/* Soft dark overlay for readability */}
+
                         <View
                             style={{
                                 position: "absolute",
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                bottom: 0,
-                                backgroundColor: "rgba(0,0,0,0.08)",
-                                borderTopLeftRadius: 24,
-                                borderTopRightRadius: 24,
+                                inset: 0,
+                                backgroundColor: "rgba(0,0,0,0.35)",
                             }}
                         />
+
+                        
                         {/* Header Actions */}
                         <View
                             style={{
@@ -71,13 +68,9 @@ export default function ArtisanProfileScreen() {
                     </View>
 
                     {/* Content */}
-                    <ScrollView
-                        showsVerticalScrollIndicator={false}
-                        contentContainerStyle={{
-                            paddingHorizontal: theme.spacing[4],
-                            paddingBottom: 120,
-                        }}
-                    >
+                    
+                    <View style={{ paddingHorizontal: theme.spacing[4], }}>
+
                         {/* Profile Card */}
                         <View
                             style={{
@@ -184,7 +177,8 @@ export default function ArtisanProfileScreen() {
                             rating={4}
                             comment="Arrived on time and solved my toilet drainage issue. Good value for money."
                         />
-                    </ScrollView>
+                    </View>
+
 
                     {/* Sticky CTA */}
                     <View
@@ -210,8 +204,8 @@ export default function ArtisanProfileScreen() {
                             </Text>
                         </Pressable>
                     </View>
-                </View>
             </ScrollView>
+                </View>
         </Screen>
     );
 }
