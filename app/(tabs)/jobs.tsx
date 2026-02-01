@@ -3,8 +3,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
 import { Screen } from "@/components/layout/Screen";
-import Tab from "@/features/artisans/components/tab";
-import JobCard from "@/features/artisans/components/job.card";
+import Tab from "@/features/jobs/components/tab";
+import JobCard from "@/features/jobs/components/job.card";
 
 const JOBS = [
   {
