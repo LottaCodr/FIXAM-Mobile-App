@@ -1,8 +1,24 @@
 import { useTheme } from "@/theme/useTheme";
 import { Ionicons } from "@expo/vector-icons";
-import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+type TabBarProps = {
+    state: {
+        index: number;
+        routes: { key: string; name: string }[];
+    };
+    descriptors: Record<
+        string,
+        { options: { title?: string; tabBarBadge?: string | number } }
+    >;
+    // Expo Router 57 and @react-navigation/bottom-tabs disagree on ColorValue vs string.
+    // Duck-type the bits we actually use.
+    navigation: {
+        emit: (event: Record<string, unknown>) => { defaultPrevented: boolean };
+        navigate: (name: string) => void;
+    };
+};
 
 const ICONS: Record<
     string,
@@ -14,7 +30,7 @@ const ICONS: Record<
     profile: { idle: "person-outline", active: "person" },
 };
 
-export function BottomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
+export function BottomTabBar({ state, descriptors, navigation }: TabBarProps | any) {
     const { colors, typography, shadow } = useTheme();
     const insets = useSafeAreaInsets();
 
@@ -30,7 +46,7 @@ export function BottomTabBar({ state, descriptors, navigation }: BottomTabBarPro
                 ...shadow.sm,
             }}
         >
-            {state.routes.map((route, index) => {
+            {state.routes.map((route: { key: string; name: string }, index: number) => {
                 const { options } = descriptors[route.key];
                 const label = options.title ?? route.name;
                 const focused = state.index === index;
