@@ -56,7 +56,7 @@ export default function TabsLayout() {
                         tabBarIcon: ({ color, focused }) => (
                             <Ionicons
                                 name={focused && activeIcon ? activeIcon : icon}
-                                size={22}
+                                size={22} 
                                 color={color}
                             />
                         ),

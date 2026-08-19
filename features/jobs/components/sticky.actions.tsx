@@ -1,7 +1,7 @@
 import { useTheme } from "@/theme/ThemeProvider";
 import { Pressable, Text, View } from "react-native";
 
-export function StickyActions() {
+export default function StickyActions() {
   const theme = useTheme();
 
   return (
@@ -42,7 +42,7 @@ export function StickyActions() {
         </Text>
       </Pressable>
 
-      <Text
+      {/* <Text
         style={{
           marginTop: theme.spacing[3],
           textAlign: "center",
@@ -50,7 +50,7 @@ export function StickyActions() {
         }}
       >
         Need help with this job?
-      </Text>
+      </Text> */}
     </View>
   );
 }
