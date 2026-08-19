@@ -63,6 +63,9 @@ export default function RootLayout() {
                             <Stack.Screen name="saved" />
                             <Stack.Screen name="categories" />
                             <Stack.Screen name="payout-account" />
+                            <Stack.Screen name="privacy" />
+                            <Stack.Screen name="terms" />
+                            <Stack.Screen name="delete-account" />
                             <Stack.Screen name="auth" />
                             <Stack.Screen name="payment" />
                         </Stack>

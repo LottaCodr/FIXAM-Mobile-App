@@ -82,3 +82,8 @@ export async function signOutRemote() {
     if (!supabase) return;
     await supabase.auth.signOut();
 }
+
+export async function deleteRemoteAccount() {
+    const { invokeFunction } = await import("@/lib/supabase");
+    await invokeFunction<{ ok: boolean }>("account-delete");
+}

@@ -120,7 +120,15 @@ export default function Login() {
                         lineHeight: 18,
                     }}
                 >
-                    We’ll never share your number. Standard SMS rates may apply.
+                    By continuing you agree to FixAm’s{" "}
+                    <Text style={{ color: colors.primary }} onPress={() => router.push("/terms")}>
+                        Terms
+                    </Text>{" "}
+                    and{" "}
+                    <Text style={{ color: colors.primary }} onPress={() => router.push("/privacy")}>
+                        Privacy Policy
+                    </Text>
+                    . Standard SMS rates may apply.
                 </Text>
             </View>
         </KeyboardAvoidingView>

@@ -25,8 +25,19 @@ supabase functions deploy
 npx expo start
 ```
 
+## Ship to the stores
+
+See [docs/STORE.md](docs/STORE.md). Identifiers: `ng.fixam.app`. Profiles: `development`, `preview`, `production`.
+
+```bash
+eas login
+eas init
+npx eas-cli build --profile production --platform all
+npx eas-cli submit --profile production --latest
+```
+
 ## Stack
 
-Expo Router · React Native · Zustand · Supabase (Postgres, Auth, Storage, Edge Functions) · Flutterwave v3
+Expo SDK 57 · React Native 0.86 · Expo Router · Zustand · Supabase · Flutterwave v3 · EAS Build / Submit / Update
 
 Social login: Google, Apple, Facebook via Supabase Auth. Phone OTP via Supabase + Termii (NG).

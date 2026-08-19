@@ -4,6 +4,7 @@ import { SUPPORT_EMAIL, SUPPORT_PHONE } from "@/constants/app.config";
 import { useTheme } from "@/theme/useTheme";
 import { Ionicons } from "@expo/vector-icons";
 import * as Linking from "expo-linking";
+import { useRouter } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 
 const FAQS = [
@@ -23,6 +24,7 @@ const FAQS = [
 
 export default function HelpScreen() {
     const theme = useTheme();
+    const router = useRouter();
 
     return (
         <Screen padded={false}>
@@ -58,6 +60,21 @@ export default function HelpScreen() {
                 >
                     FAQs
                 </Text>
+                <Pressable onPress={() => router.push("/privacy")} style={card(theme)}>
+                    <Ionicons name="document-text-outline" size={20} color={theme.colors.primary} />
+                    <View style={{ marginLeft: 12 }}>
+                        <Text style={{ ...theme.typography.bodyMedium }}>Privacy policy</Text>
+                        <Text style={{ color: theme.colors.textMuted }}>How we handle your data</Text>
+                    </View>
+                </Pressable>
+                <Pressable onPress={() => router.push("/terms")} style={card(theme)}>
+                    <Ionicons name="reader-outline" size={20} color={theme.colors.primary} />
+                    <View style={{ marginLeft: 12 }}>
+                        <Text style={{ ...theme.typography.bodyMedium }}>Terms of use</Text>
+                        <Text style={{ color: theme.colors.textMuted }}>Bookings, payments, cancellations</Text>
+                    </View>
+                </Pressable>
+
                 {FAQS.map((f) => (
                     <View key={f.q} style={{ ...card(theme), flexDirection: "column", alignItems: "flex-start" }}>
                         <Text style={{ ...theme.typography.bodyMedium }}>{f.q}</Text>

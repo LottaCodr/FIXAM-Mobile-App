@@ -1,6 +1,13 @@
 import { DEMO_OTP } from "@/constants/app.config";
 import { DEMO_USER } from "@/data/mock";
-import { confirmOtp, fetchMyProfile, requestOtp, signOutRemote, updateMyProfile } from "@/features/auth/services";
+import {
+    confirmOtp,
+    deleteRemoteAccount,
+    fetchMyProfile,
+    requestOtp,
+    signOutRemote,
+    updateMyProfile,
+} from "@/features/auth/services";
 import { isBackendConfigured } from "@/lib/env";
 import type { User } from "@/types/user";
 import { create } from "zustand";
@@ -25,6 +32,7 @@ type AuthState = {
     loginDemo: () => void;
     updateUser: (patch: Partial<User>) => void;
     logout: () => Promise<void>;
+    deleteAccount: () => Promise<{ ok: boolean; message?: string }>;
 };
 
 const memoryStorage = () => {
@@ -157,6 +165,24 @@ export const useAuthStore = create<AuthState>()(
                     isAuthenticated: false,
                     pendingPhone: null,
                 });
+            },
+
+            deleteAccount: async () => {
+                try {
+                    if (isBackendConfigured()) {
+                        await deleteRemoteAccount();
+                    }
+                    set({
+                        user: null,
+                        accessToken: null,
+                        refreshToken: null,
+                        isAuthenticated: false,
+                        pendingPhone: null,
+                    });
+                    return { ok: true };
+                } catch (error) {
+                    return { ok: false, message: (error as Error).message };
+                }
             },
         }),
         {

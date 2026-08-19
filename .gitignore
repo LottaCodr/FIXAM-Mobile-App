@@ -43,3 +43,9 @@ app-example
 # generated native folders
 /ios
 /android
+
+# store / EAS secrets
+google-play-service-account.json
+AuthKey_*.p8
+credentials.json
+*.keystore

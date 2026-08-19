@@ -51,7 +51,15 @@ export default function ProfileScreen() {
             title: "Support",
             items: [
                 { icon: "help-circle-outline", label: "Help & support", href: "/help" },
+                { icon: "document-text-outline", label: "Privacy policy", href: "/privacy" },
+                { icon: "reader-outline", label: "Terms of use", href: "/terms" },
                 { icon: "settings-outline", label: "Settings", href: "/settings" },
+                {
+                    icon: "trash-outline",
+                    label: "Delete account",
+                    danger: true,
+                    href: "/delete-account",
+                },
                 {
                     icon: "log-out-outline",
                     label: "Log out",
