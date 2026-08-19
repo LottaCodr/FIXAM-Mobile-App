@@ -5,28 +5,18 @@ type ThemeContextType = Theme;
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-export const ThemeProvider = ({
-    children,
-}: {
-    children: React.ReactNode;
-}) => {
-
+export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     const theme = useMemo(() => lightTheme, []);
 
-    return (
-        <ThemeContext.Provider value={theme}>
-            {children}
-        </ThemeContext.Provider>
-    )
+    return <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>;
 };
 
-
 export const useTheme = (): ThemeContextType => {
-    const context = useContext(ThemeContext);;
+    const context = useContext(ThemeContext);
 
     if (!context) {
-        throw new Error("useTheme must be used within a ThemProvider")
+        throw new Error("useTheme must be used within a ThemeProvider");
     }
 
-    return context
-}
+    return context;
+};

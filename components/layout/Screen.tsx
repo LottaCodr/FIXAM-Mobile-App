@@ -1,18 +1,28 @@
-import { useTheme } from "@/theme/ThemeProvider";
+import { useTheme } from "@/theme/useTheme";
+import type { ReactNode } from "react";
 import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-
 type Props = {
-    children: React.ReactNode;
+    children: ReactNode;
     padded?: boolean;
+    edges?: ("top" | "right" | "bottom" | "left")[];
+    background?: string;
 };
 
-export function Screen({ children, padded = true }: Props) {
+export function Screen({
+    children,
+    padded = true,
+    edges = ["top"],
+    background,
+}: Props) {
     const { spacing, colors } = useTheme();
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: colors.neutral[0] }}>
+        <SafeAreaView
+            edges={edges}
+            style={{ flex: 1, backgroundColor: background ?? colors.background }}
+        >
             <View
                 style={{
                     flex: 1,
@@ -21,6 +31,6 @@ export function Screen({ children, padded = true }: Props) {
             >
                 {children}
             </View>
-        </SafeAreaView >
+        </SafeAreaView>
     );
 }

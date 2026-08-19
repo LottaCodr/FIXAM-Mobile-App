@@ -1,8 +1,19 @@
-import { useTheme } from "@/theme/ThemeProvider";
+import { useTheme } from "@/theme/useTheme";
+import { formatNaira } from "@/utils/format.currency";
+import { formatDateTime } from "@/utils/format.date";
 import { Text, View } from "react-native";
 
-export function PaymentCard() {
+export function PaymentCard({
+    serviceFee,
+    partsAmount,
+    date,
+}: {
+    serviceFee: number;
+    partsAmount: number;
+    date: string;
+}) {
     const theme = useTheme();
+    const total = serviceFee + partsAmount;
 
     return (
         <View
@@ -10,13 +21,17 @@ export function PaymentCard() {
                 backgroundColor: theme.colors.surface,
                 borderRadius: theme.radius.lg,
                 padding: theme.spacing[4],
-                marginTop: theme.spacing[6],
-                elevation: 3,
+                marginTop: theme.spacing[4],
+                borderWidth: 1,
+                borderColor: theme.colors.border,
             }}
         >
-            <Row label="Service Fee" value="₦12,500" />
-            <Row label="Parts & Materials" value="₦2,500" />
-            <Row label="Date" value="Oct 12, 2023 • 2:45 PM" />
+            <Text style={{ ...theme.typography.h4, marginBottom: theme.spacing[3] }}>
+                Payment
+            </Text>
+            <Row label="Service fee" value={formatNaira(serviceFee)} />
+            <Row label="Parts & materials" value={formatNaira(partsAmount)} />
+            <Row label="Date" value={formatDateTime(date)} />
 
             <View
                 style={{
@@ -26,16 +41,20 @@ export function PaymentCard() {
                 }}
             />
 
-            <Row
-                label="Total Paid"
-                value="₦15,000"
-                highlight
-            />
+            <Row label="Total" value={formatNaira(total)} highlight />
         </View>
     );
 }
 
-function Row({ label, value, highlight }: any) {
+function Row({
+    label,
+    value,
+    highlight,
+}: {
+    label: string;
+    value: string;
+    highlight?: boolean;
+}) {
     const theme = useTheme();
 
     return (

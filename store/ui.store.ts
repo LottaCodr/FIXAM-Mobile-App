@@ -1,42 +1,36 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
-export type ThemeMode = "light" | "dark" | "system"
+export type ThemeMode = "light" | "dark" | "system";
 
-interface ThemeState {
-    mode: ThemeMode;
-    isDark: boolean;
-    setMode: (mode: ThemeMode) => void;
-}
+type ToastKind = "success" | "error" | "info";
 
-export const useThemStore = create<ThemeState>((set) => ({
-    mode: "system",
-    isDark: false,
-
-    setMode: (mode) =>
-        set(() => ({
-            mode,
-            isDark: mode === "dark"
-        }))
-}))
-
+type Toast = {
+    message: string;
+    kind: ToastKind;
+};
 
 type UIState = {
     loading: boolean;
-    toast: string | null
+    toast: Toast | null;
+    mode: ThemeMode;
 
     showLoading: () => void;
     hideLoading: () => void;
-    showToast: (message: string) => void;
+    showToast: (message: string, kind?: ToastKind) => void;
     clearToast: () => void;
-}
+    setMode: (mode: ThemeMode) => void;
+};
 
 export const useUIStore = create<UIState>((set) => ({
     loading: false,
     toast: null,
+    mode: "light",
 
     showLoading: () => set({ loading: true }),
     hideLoading: () => set({ loading: false }),
+    showToast: (message, kind = "info") => set({ toast: { message, kind } }),
+    clearToast: () => set({ toast: null }),
+    setMode: (mode) => set({ mode }),
+}));
 
-    showToast: (message) => set({ toast: message }),
-    clearToast: () => set({ toast: null })
-}))
+export const useThemStore = useUIStore;

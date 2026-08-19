@@ -1,96 +1,70 @@
-import { useTheme } from '@/theme/ThemeProvider';
-import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
-import { Image, Pressable, Text, View } from 'react-native';
+import { Avatar } from "@/components/ui/avatar";
+import { getArtisan } from "@/data/mock";
+import StatusPills from "@/features/jobs/components/status.pills";
+import type { Job } from "@/features/jobs/types";
+import { isActiveJob } from "@/store/job.store";
+import { useTheme } from "@/theme/useTheme";
+import { formatNaira } from "@/utils/format.currency";
+import { formatDate } from "@/utils/format.date";
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import { Pressable, Text, View } from "react-native";
 
-export default function JobCard({ job }: any) {
-    const theme = useTheme()
+export default function JobCard({ job }: { job: Job }) {
+    const theme = useTheme();
+    const artisan = getArtisan(job.artisanId);
+    const router = useRouter();
+    const active = isActiveJob(job);
+
     return (
-        <View
-            style={{
+        <Pressable
+            onPress={() => router.push(`/job/${job.id}`)}
+            style={({ pressed }) => ({
                 backgroundColor: theme.colors.surface,
                 borderRadius: theme.radius.lg,
                 padding: theme.spacing[4],
-                marginBottom: theme.spacing[4],
-                elevation: 3,
-            }}
+                marginBottom: theme.spacing[3],
+                borderWidth: 1,
+                borderColor: theme.colors.border,
+                opacity: pressed ? 0.94 : 1,
+                ...theme.shadow.sm,
+            })}
         >
-            {/* Top */}
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Image
-                    source={{ uri: job.image }}
-                    style={{
-                        width: 48,
-                        height: 48,
-                        borderRadius: theme.radius.full,
-                        marginRight: theme.spacing[3],
-                    }}
-                />
+                <Avatar uri={artisan?.avatar} name={artisan?.name} size={48} />
 
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1, marginLeft: theme.spacing[3] }}>
                     <Text
-                        style={{
-                            fontWeight: theme.typography.h3?.fontWeight ?? "bold",
-                            fontSize: theme.typography.h3?.fontSize ?? 20,
-                        }}
+                        numberOfLines={1}
+                        style={{ ...theme.typography.bodyMedium, color: theme.colors.textPrimary }}
                     >
-                        {job.name}
+                        {artisan?.name ?? "Artisan"}
                     </Text>
-
-                    <Text style={{ color: theme.colors.primary }}>
+                    <Text style={{ color: theme.colors.primary, marginTop: 1 }}>
                         {job.service}
                     </Text>
-
                     <View style={{ flexDirection: "row", alignItems: "center", marginTop: 4 }}>
-                        <Ionicons
-                            name="calendar-outline"
-                            size={14}
-                            color={theme.colors.textMuted}
-                        />
+                        <Ionicons name="calendar-outline" size={13} color={theme.colors.textMuted} />
                         <Text
                             style={{
                                 marginLeft: 6,
                                 color: theme.colors.textMuted,
-                                fontSize: theme.typography.body?.fontSize ?? 14,
+                                fontSize: 12,
                             }}
                         >
-                            {job.date}
+                            {formatDate(job.createdAt)}
                         </Text>
                     </View>
                 </View>
 
-                <View style={{ alignItems: "flex-end" }}>
-                    <Text
-                        style={{
-                            fontWeight: theme.typography.h3?.fontWeight ?? "bold",
-                            fontSize: theme.typography.h3?.fontSize ?? 16,
-                        }}
-                    >
-                        {job.amount}
+                <View style={{ alignItems: "flex-end", gap: 8 }}>
+                    <Text style={{ ...theme.typography.h4, color: theme.colors.textPrimary }}>
+                        {formatNaira(job.amount)}
                     </Text>
-
-                    <View
-                        style={{
-                            backgroundColor: theme.colors.primaryLight,
-                            paddingHorizontal: theme.spacing[3],
-                            paddingVertical: theme.spacing[1],
-                            borderRadius: theme.radius.full,
-                            marginTop: theme.spacing[2],
-                        }}
-                    >
-                        <Text
-                            style={{
-                                color: theme.colors.primary,
-                                fontSize: theme.typography.caption?.fontSize ?? 12,
-                            }}
-                        >
-                            COMPLETED
-                        </Text>
-                    </View>
+                    <StatusPills status={job.status} />
                 </View>
             </View>
 
-            {/* Bottom */}
             <View
                 style={{
                     marginTop: theme.spacing[4],
@@ -99,23 +73,40 @@ export default function JobCard({ job }: any) {
                     alignItems: "center",
                 }}
             >
-                <Text style={{ color: "#F59E0B", fontWeight: "600" }}>
-                    ⭐ {job.rating}
-                </Text>
+                {job.rating ? (
+                    <Text style={{ color: theme.colors.warning, fontWeight: "600" }}>
+                        ★ {job.rating.toFixed(1)}
+                    </Text>
+                ) : (
+                    <Text style={{ color: theme.colors.textMuted, fontSize: 12 }}>
+                        {job.scheduledLabel}
+                    </Text>
+                )}
 
                 <Pressable
+                    onPress={(event) => {
+                        event.stopPropagation();
+                        if (active) {
+                            router.push(`/job/${job.id}`);
+                            return;
+                        }
+                        router.push({
+                            pathname: "/job/request",
+                            params: { artisanId: job.artisanId },
+                        });
+                    }}
                     style={{
-                        backgroundColor: theme.colors.primary,
-                        paddingHorizontal: theme.spacing[6],
-                        paddingVertical: theme.spacing[2],
-                        borderRadius: theme.radius.md,
+                        backgroundColor: active ? theme.colors.accent : theme.colors.primary,
+                        paddingHorizontal: theme.spacing[5],
+                        paddingVertical: 8,
+                        borderRadius: theme.radius.sm,
                     }}
                 >
-                    <Text style={{ color: "#fff", fontWeight: "600" }}>
-                        Rebook
+                    <Text style={{ color: "#fff", fontWeight: "700", fontSize: 13 }}>
+                        {active ? "Track" : "Rebook"}
                     </Text>
                 </Pressable>
             </View>
-        </View>
+        </Pressable>
     );
 }
