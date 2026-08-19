@@ -1,25 +1,26 @@
-import { useTheme } from '@/theme/ThemeProvider'
-import { Ionicons } from '@expo/vector-icons'
-import React from 'react'
-import { Text, View } from 'react-native'
+import { JOB_STATUS_META } from "@/features/jobs/status";
+import type { JobStatus } from "@/features/jobs/types";
+import { useTheme } from "@/theme/useTheme";
+import { Text, View } from "react-native";
 
-export default function StatusPills() {
-    const theme = useTheme()
+export default function StatusPills({ status }: { status: JobStatus }) {
+    const theme = useTheme();
+    const meta = JOB_STATUS_META[status];
 
     return (
         <View
             style={{
                 flexDirection: "row",
                 alignItems: "center",
-                gap: 6,
-                backgroundColor: theme.colors.primaryLight,
-                paddingHorizontal: theme.spacing[4],
-                paddingVertical: theme.spacing[2],
-                borderRadius: theme.radius.full
+                backgroundColor: meta.soft,
+                paddingHorizontal: theme.spacing[3],
+                paddingVertical: 4,
+                borderRadius: theme.radius.full,
             }}
         >
-            <Ionicons name="checkmark-circle" size={16} color={theme.colors.primary} />
-            <Text style={{ color: theme.colors.primary, fontWeight: "600" }}>Completed</Text>
+            <Text style={{ color: meta.color, fontWeight: "700", fontSize: 11 }}>
+                {meta.label.toUpperCase()}
+            </Text>
         </View>
-    )
+    );
 }

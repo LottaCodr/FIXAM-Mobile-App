@@ -1,56 +1,55 @@
-import { useTheme } from "@/theme/ThemeProvider";
-import { Pressable, Text, View } from "react-native";
+import { AppButton } from "@/components/ui/buttons";
+import { useTheme } from "@/theme/useTheme";
+import { Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-export function StickyActions() {
-  const theme = useTheme();
+export function StickyActions({
+    primaryLabel,
+    onPrimary,
+    secondaryLabel,
+    onSecondary,
+    hint,
+}: {
+    primaryLabel: string;
+    onPrimary: () => void;
+    secondaryLabel?: string;
+    onSecondary?: () => void;
+    hint?: string;
+}) {
+    const theme = useTheme();
+    const insets = useSafeAreaInsets();
 
-  return (
-    <View
-      style={{
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        padding: theme.spacing[4],
-        backgroundColor: theme.colors.surface,
-      }}
-    >
-      <Pressable
-        style={{
-          backgroundColor: theme.colors.primaryLight,
-          paddingVertical: theme.spacing[3],
-          borderRadius: theme.radius.lg,
-          alignItems: "center",
-          marginBottom: theme.spacing[3],
-        }}
-      >
-        <Text style={{ color: theme.colors.primary, fontWeight: "600" }}>
-          Download Receipt
-        </Text>
-      </Pressable>
-
-      <Pressable
-        style={{
-          backgroundColor: theme.colors.primary,
-          paddingVertical: theme.spacing[4],
-          borderRadius: theme.radius.lg,
-          alignItems: "center",
-        }}
-      >
-        <Text style={{ color: "#fff", fontWeight: "700" }}>
-          Rebook Artisan
-        </Text>
-      </Pressable>
-
-      <Text
-        style={{
-          marginTop: theme.spacing[3],
-          textAlign: "center",
-          color: theme.colors.textMuted,
-        }}
-      >
-        Need help with this job?
-      </Text>
-    </View>
-  );
+    return (
+        <View
+            style={{
+                padding: theme.spacing[4],
+                paddingBottom: Math.max(insets.bottom, 16),
+                backgroundColor: theme.colors.surface,
+                borderTopWidth: 1,
+                borderTopColor: theme.colors.border,
+            }}
+        >
+            {secondaryLabel && onSecondary ? (
+                <View style={{ marginBottom: theme.spacing[2] }}>
+                    <AppButton
+                        label={secondaryLabel}
+                        variant="secondary"
+                        onPress={onSecondary}
+                    />
+                </View>
+            ) : null}
+            <AppButton label={primaryLabel} variant="accent" onPress={onPrimary} />
+            {hint ? (
+                <Text
+                    style={{
+                        marginTop: theme.spacing[2],
+                        textAlign: "center",
+                        color: theme.colors.textMuted,
+                    }}
+                >
+                    {hint}
+                </Text>
+            ) : null}
+        </View>
+    );
 }

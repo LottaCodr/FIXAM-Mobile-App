@@ -11,7 +11,9 @@ export const spacing = {
     9: 36,
     10: 40,
     12: 48,
+    14: 56,
     16: 64,
+    20: 80,
 };
 
 export type Spacing = typeof spacing;

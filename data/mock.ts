@@ -1,0 +1,710 @@
+import type { Artisan } from "@/features/artisans/types";
+import type { Job } from "@/features/jobs/types";
+import type { PaymentMethod } from "@/features/payment/types";
+import type { User } from "@/types/user";
+
+export const DEMO_USER: User = {
+    id: "u1",
+    name: "Lotanna Okeke",
+    firstName: "Lotanna",
+    phone: "0803 441 2290",
+    email: "lotanna@fixam.ng",
+    avatar: "https://i.pravatar.cc/200?img=12",
+    location: "Lekki Phase 1",
+    address: "14 Admiralty Way, Lekki Phase 1, Lagos",
+    referralCode: "LOTANNA20",
+    memberSince: "2024-03-12T10:00:00.000Z",
+};
+
+const reviewsFor = (
+    seed: { name: string; avatar: string; rating: number; comment: string; createdAt: string }[],
+) =>
+    seed.map((r, i) => ({
+        id: `rv-${i}-${r.name}`,
+        ...r,
+    }));
+
+export const ARTISANS: Artisan[] = [
+    {
+        id: "a1",
+        name: "Chinedu Okonkwo",
+        categoryId: "plumbing",
+        skill: "Master Plumber",
+        rating: 4.9,
+        reviewCount: 186,
+        distance: 1.2,
+        price: 6500,
+        priceMax: 18000,
+        avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+        cover: "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=1200&q=80",
+        verified: true,
+        yearsExp: 8,
+        jobsDone: 420,
+        about: "Licensed plumber specialising in leak detection, bathroom fittings and water heater repairs. I show up with the right tools and leave the space cleaner than I met it.",
+        location: "Lekki, Lagos",
+        responseMins: 8,
+        online: true,
+        portfolio: [
+            "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&q=80",
+            "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80",
+            "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80",
+        ],
+        reviews: reviewsFor([
+            {
+                name: "Emeka Obi",
+                avatar: "https://randomuser.me/api/portraits/men/11.jpg",
+                rating: 5,
+                comment: "Fixed a major kitchen leak in under an hour. Very tidy and explained everything.",
+                createdAt: "2026-08-16T09:00:00.000Z",
+            },
+            {
+                name: "Amina Yusuf",
+                avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+                rating: 5,
+                comment: "On time, fair price, and the tap hasn't dripped since. Highly recommend.",
+                createdAt: "2026-08-10T14:20:00.000Z",
+            },
+        ]),
+    },
+    {
+        id: "a2",
+        name: "Aisha Bello",
+        categoryId: "electrical",
+        skill: "Licensed Electrician",
+        rating: 4.8,
+        reviewCount: 142,
+        distance: 2.4,
+        price: 8000,
+        priceMax: 25000,
+        avatar: "https://randomuser.me/api/portraits/women/65.jpg",
+        cover: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1200&q=80",
+        verified: true,
+        yearsExp: 6,
+        jobsDone: 310,
+        about: "I handle wiring, sockets, lighting and inverter setups for homes and small offices. Safety-first, neat finishing, and I always test before I leave.",
+        location: "Victoria Island, Lagos",
+        responseMins: 12,
+        online: true,
+        portfolio: [
+            "https://images.unsplash.com/photo-1558002038-1055907df827?w=800&q=80",
+            "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&q=80",
+        ],
+        reviews: reviewsFor([
+            {
+                name: "Tunde Adebayo",
+                avatar: "https://randomuser.me/api/portraits/men/22.jpg",
+                rating: 5,
+                comment: "Rewired my living room and installed new pendants. Clean work.",
+                createdAt: "2026-08-12T11:00:00.000Z",
+            },
+        ]),
+    },
+    {
+        id: "a3",
+        name: "Tunde Adebayo",
+        categoryId: "electrical",
+        skill: "Electrical Technician",
+        rating: 4.7,
+        reviewCount: 98,
+        distance: 3.8,
+        price: 7000,
+        priceMax: 20000,
+        avatar: "https://randomuser.me/api/portraits/men/45.jpg",
+        cover: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1200&q=80",
+        verified: true,
+        yearsExp: 5,
+        jobsDone: 204,
+        about: "Fast emergency electrical repairs across the Island. Fans, distribution boards, and faulty sockets are my everyday work.",
+        location: "Ikoyi, Lagos",
+        responseMins: 15,
+        online: false,
+        portfolio: [
+            "https://images.unsplash.com/photo-1565608438257-fac3c27beb36?w=800&q=80",
+        ],
+        reviews: reviewsFor([
+            {
+                name: "Ngozi Eze",
+                avatar: "https://randomuser.me/api/portraits/women/21.jpg",
+                rating: 4,
+                comment: "Came same day and restored power. Would book again.",
+                createdAt: "2026-08-04T16:00:00.000Z",
+            },
+        ]),
+    },
+    {
+        id: "a4",
+        name: "Ngozi Eze",
+        categoryId: "plumbing",
+        skill: "Plumber",
+        rating: 4.6,
+        reviewCount: 76,
+        distance: 4.1,
+        price: 5500,
+        priceMax: 15000,
+        avatar: "https://randomuser.me/api/portraits/women/33.jpg",
+        cover: "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=1200&q=80",
+        verified: true,
+        yearsExp: 4,
+        jobsDone: 168,
+        about: "Friendly, reliable plumbing for apartments. I specialise in kitchen and bathroom fixes that don't disrupt your whole day.",
+        location: "Ajah, Lagos",
+        responseMins: 20,
+        online: true,
+        portfolio: [
+            "https://images.unsplash.com/photo-1631889993959-41b4e9c6e3c5?w=800&q=80",
+        ],
+        reviews: reviewsFor([
+            {
+                name: "Ibrahim Musa",
+                avatar: "https://randomuser.me/api/portraits/men/52.jpg",
+                rating: 5,
+                comment: "Unblocked my drain quickly and advised on prevention.",
+                createdAt: "2026-07-28T10:00:00.000Z",
+            },
+        ]),
+    },
+    {
+        id: "a5",
+        name: "Ibrahim Musa",
+        categoryId: "ac-repair",
+        skill: "AC Specialist",
+        rating: 4.9,
+        reviewCount: 211,
+        distance: 2.9,
+        price: 12000,
+        priceMax: 45000,
+        avatar: "https://randomuser.me/api/portraits/men/75.jpg",
+        cover: "https://images.unsplash.com/photo-1631545806609-35cdad729548?w=1200&q=80",
+        verified: true,
+        yearsExp: 9,
+        jobsDone: 540,
+        about: "Gas refill, compressor issues, installation and servicing for split units. I carry gauges and vacuum pumps — no guesswork.",
+        location: "Maryland, Lagos",
+        responseMins: 10,
+        online: true,
+        portfolio: [
+            "https://images.unsplash.com/photo-1631545806609-35cdad729548?w=800&q=80",
+            "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80",
+        ],
+        reviews: reviewsFor([
+            {
+                name: "Funke Adeyemi",
+                avatar: "https://randomuser.me/api/portraits/women/68.jpg",
+                rating: 5,
+                comment: "My sitting room AC is ice cold again. Professional from start to finish.",
+                createdAt: "2026-08-14T13:10:00.000Z",
+            },
+        ]),
+    },
+    {
+        id: "a6",
+        name: "Funke Adeyemi",
+        categoryId: "painting",
+        skill: "Interior Painter",
+        rating: 4.8,
+        reviewCount: 89,
+        distance: 5.2,
+        price: 25000,
+        priceMax: 180000,
+        avatar: "https://randomuser.me/api/portraits/women/12.jpg",
+        cover: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=1200&q=80",
+        verified: true,
+        yearsExp: 7,
+        jobsDone: 132,
+        about: "Careful surface prep, clean lines and premium finishes. I work well with families who need rooms painted around their schedule.",
+        location: "Surulere, Lagos",
+        responseMins: 25,
+        online: false,
+        portfolio: [
+            "https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=800&q=80",
+            "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=800&q=80",
+        ],
+        reviews: reviewsFor([
+            {
+                name: "Blessing Okoro",
+                avatar: "https://randomuser.me/api/portraits/women/47.jpg",
+                rating: 5,
+                comment: "Our bedroom looks brand new. She protected the furniture perfectly.",
+                createdAt: "2026-08-01T09:40:00.000Z",
+            },
+        ]),
+    },
+    {
+        id: "a7",
+        name: "Emeka Obi",
+        categoryId: "cleaning",
+        skill: "Home Cleaning Lead",
+        rating: 4.7,
+        reviewCount: 154,
+        distance: 1.8,
+        price: 15000,
+        priceMax: 60000,
+        avatar: "https://randomuser.me/api/portraits/men/18.jpg",
+        cover: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&q=80",
+        verified: true,
+        yearsExp: 5,
+        jobsDone: 390,
+        about: "Deep cleaning teams for apartments and offices. We bring our own supplies and leave every surface sparkling.",
+        location: "Yaba, Lagos",
+        responseMins: 18,
+        online: true,
+        portfolio: [
+            "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80",
+            "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=800&q=80",
+        ],
+        reviews: reviewsFor([
+            {
+                name: "Amaka Chukwu",
+                avatar: "https://randomuser.me/api/portraits/women/55.jpg",
+                rating: 4,
+                comment: "Thorough clean after our party. Kitchen was spotless.",
+                createdAt: "2026-08-08T17:00:00.000Z",
+            },
+        ]),
+    },
+    {
+        id: "a8",
+        name: "Segun Adewale",
+        categoryId: "generator",
+        skill: "Generator Engineer",
+        rating: 4.9,
+        reviewCount: 167,
+        distance: 3.3,
+        price: 10000,
+        priceMax: 80000,
+        avatar: "https://randomuser.me/api/portraits/men/41.jpg",
+        cover: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1200&q=80",
+        verified: true,
+        yearsExp: 11,
+        jobsDone: 288,
+        about: "Servicing and repair for Tiger, Elepaq, and industrial sets. I diagnose properly before replacing parts — no unnecessary spend.",
+        location: "Ikeja, Lagos",
+        responseMins: 14,
+        online: true,
+        portfolio: [
+            "https://images.unsplash.com/photo-1513828583688-c52646db42da?w=800&q=80",
+        ],
+        reviews: reviewsFor([
+            {
+                name: "Lotanna Okeke",
+                avatar: "https://i.pravatar.cc/200?img=12",
+                rating: 5,
+                comment: "Changed my AVR and serviced the set. Starts first pull now.",
+                createdAt: "2026-07-20T12:00:00.000Z",
+            },
+        ]),
+    },
+    {
+        id: "a9",
+        name: "Fatima Yusuf",
+        categoryId: "carpentry",
+        skill: "Carpenter & Joiner",
+        rating: 4.8,
+        reviewCount: 73,
+        distance: 6.1,
+        price: 18000,
+        priceMax: 220000,
+        avatar: "https://randomuser.me/api/portraits/women/79.jpg",
+        cover: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=1200&q=80",
+        verified: true,
+        yearsExp: 6,
+        jobsDone: 121,
+        about: "Custom shelves, door repairs and kitchen cabinets. Precise measurements and a finish you can live with for years.",
+        location: "Gbagada, Lagos",
+        responseMins: 30,
+        online: false,
+        portfolio: [
+            "https://images.unsplash.com/photo-1556912173-46c336c7fd55?w=800&q=80",
+            "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&q=80",
+        ],
+        reviews: reviewsFor([
+            {
+                name: "Ifeanyi Nwosu",
+                avatar: "https://randomuser.me/api/portraits/men/29.jpg",
+                rating: 5,
+                comment: "Built a wardrobe that looks factory-made. Excellent craft.",
+                createdAt: "2026-07-15T15:30:00.000Z",
+            },
+        ]),
+    },
+    {
+        id: "a10",
+        name: "Ifeanyi Nwosu",
+        categoryId: "gardening",
+        skill: "Landscape Gardener",
+        rating: 4.7,
+        reviewCount: 64,
+        distance: 4.7,
+        price: 12000,
+        priceMax: 90000,
+        avatar: "https://randomuser.me/api/portraits/men/36.jpg",
+        cover: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1200&q=80",
+        verified: true,
+        yearsExp: 8,
+        jobsDone: 97,
+        about: "Lawn care, hedges, and small garden makeovers. I work quietly and treat your outdoor space like my own.",
+        location: "Lekki Phase 2, Lagos",
+        responseMins: 22,
+        online: true,
+        portfolio: [
+            "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80",
+            "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&q=80",
+        ],
+        reviews: reviewsFor([
+            {
+                name: "Chioma Ade",
+                avatar: "https://randomuser.me/api/portraits/women/8.jpg",
+                rating: 5,
+                comment: "Front lawn looks like a hotel garden. Will retain him monthly.",
+                createdAt: "2026-08-05T08:20:00.000Z",
+            },
+        ]),
+    },
+    {
+        id: "a11",
+        name: "Blessing Okoro",
+        categoryId: "cleaning",
+        skill: "Deep Clean Specialist",
+        rating: 4.9,
+        reviewCount: 201,
+        distance: 2.1,
+        price: 18000,
+        priceMax: 75000,
+        avatar: "https://randomuser.me/api/portraits/women/28.jpg",
+        cover: "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=1200&q=80",
+        verified: true,
+        yearsExp: 6,
+        jobsDone: 455,
+        about: "Move-in, post-renovation and weekly retainers. Detail-oriented team with background-checked cleaners.",
+        location: "Lekki Phase 1, Lagos",
+        responseMins: 9,
+        online: true,
+        portfolio: [
+            "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&q=80",
+        ],
+        reviews: reviewsFor([
+            {
+                name: "Kemi Balogun",
+                avatar: "https://randomuser.me/api/portraits/women/17.jpg",
+                rating: 5,
+                comment: "Best post-renovation clean we've had. Windows, grout, everything.",
+                createdAt: "2026-08-11T10:15:00.000Z",
+            },
+        ]),
+    },
+    {
+        id: "a12",
+        name: "Amaka Chukwu",
+        categoryId: "ac-repair",
+        skill: "HVAC Technician",
+        rating: 4.6,
+        reviewCount: 58,
+        distance: 7.4,
+        price: 11000,
+        priceMax: 40000,
+        avatar: "https://randomuser.me/api/portraits/women/50.jpg",
+        cover: "https://images.unsplash.com/photo-1631545806609-35cdad729548?w=1200&q=80",
+        verified: false,
+        yearsExp: 3,
+        jobsDone: 86,
+        about: "Affordable AC servicing and installation for studio apartments and small offices.",
+        location: "Ojodu, Lagos",
+        responseMins: 35,
+        online: false,
+        portfolio: [],
+        reviews: reviewsFor([
+            {
+                name: "David Banjo",
+                avatar: "https://randomuser.me/api/portraits/men/9.jpg",
+                rating: 4,
+                comment: "Good service, arrived a bit late but did a solid job.",
+                createdAt: "2026-07-30T18:00:00.000Z",
+            },
+        ]),
+    },
+];
+
+export const INITIAL_JOBS: Job[] = [
+    {
+        id: "FX-4821",
+        artisanId: "a1",
+        categoryId: "plumbing",
+        service: "Kitchen pipe leak",
+        description: "Persistent leak under the kitchen sink. Water pooling on the cabinet floor.",
+        status: "en_route",
+        address: "14 Admiralty Way, Lekki Phase 1, Lagos",
+        schedule: "asap",
+        scheduledLabel: "ASAP",
+        createdAt: "2026-08-18T08:40:00.000Z",
+        updatedAt: "2026-08-18T09:05:00.000Z",
+        amount: 8500,
+        partsAmount: 2000,
+        paymentStatus: "successful",
+        etaMins: 12,
+        photos: [],
+    },
+    {
+        id: "FX-4790",
+        artisanId: "a5",
+        categoryId: "ac-repair",
+        service: "Split unit servicing",
+        description: "Annual service for the bedroom 1.5HP split unit. It's blowing warm air.",
+        status: "accepted",
+        address: "14 Admiralty Way, Lekki Phase 1, Lagos",
+        schedule: "schedule",
+        scheduledLabel: "Tomorrow, 10:00 AM",
+        createdAt: "2026-08-17T16:20:00.000Z",
+        updatedAt: "2026-08-17T16:45:00.000Z",
+        amount: 18000,
+        partsAmount: 0,
+        paymentStatus: "pending",
+        photos: [],
+    },
+    {
+        id: "FX-4512",
+        artisanId: "a2",
+        categoryId: "electrical",
+        service: "Electrical repair",
+        description: "Living room sockets sparking. Need inspection and replacement.",
+        status: "completed",
+        address: "14 Admiralty Way, Lekki Phase 1, Lagos",
+        schedule: "asap",
+        scheduledLabel: "ASAP",
+        createdAt: "2026-07-12T10:00:00.000Z",
+        updatedAt: "2026-07-12T14:45:00.000Z",
+        amount: 15000,
+        partsAmount: 2500,
+        rating: 4.8,
+        review: "Aisha was thorough and explained the fault clearly.",
+        photos: [],
+    },
+    {
+        id: "FX-4388",
+        artisanId: "a4",
+        categoryId: "plumbing",
+        service: "Pipe leakage fix",
+        description: "Bathroom waste pipe leaking at the joint.",
+        status: "completed",
+        address: "14 Admiralty Way, Lekki Phase 1, Lagos",
+        schedule: "today",
+        scheduledLabel: "Same day",
+        createdAt: "2026-07-05T09:10:00.000Z",
+        updatedAt: "2026-07-05T12:00:00.000Z",
+        amount: 8500,
+        partsAmount: 1500,
+        rating: 5,
+        photos: [],
+    },
+    {
+        id: "FX-4210",
+        artisanId: "a6",
+        categoryId: "painting",
+        service: "Bedroom wall painting",
+        description: "Two coats, off-white, master bedroom including ceiling trim.",
+        status: "completed",
+        address: "14 Admiralty Way, Lekki Phase 1, Lagos",
+        schedule: "schedule",
+        scheduledLabel: "Scheduled",
+        createdAt: "2026-06-28T08:00:00.000Z",
+        updatedAt: "2026-06-28T17:30:00.000Z",
+        amount: 45000,
+        partsAmount: 12000,
+        rating: 4.9,
+        photos: [],
+    },
+];
+
+export type Conversation = {
+    id: string;
+    artisanId: string;
+    lastMessage: string;
+    lastAt: string;
+    unread: number;
+};
+
+export type ChatMessage = {
+    id: string;
+    conversationId: string;
+    from: "user" | "artisan";
+    text: string;
+    createdAt: string;
+};
+
+export const INITIAL_CONVERSATIONS: Conversation[] = [
+    {
+        id: "c1",
+        artisanId: "a1",
+        lastMessage: "I'm about 12 minutes away. Please keep the gate open.",
+        lastAt: "2026-08-18T09:06:00.000Z",
+        unread: 2,
+    },
+    {
+        id: "c2",
+        artisanId: "a5",
+        lastMessage: "Confirmed for tomorrow 10am. I'll bring gas just in case.",
+        lastAt: "2026-08-17T16:48:00.000Z",
+        unread: 0,
+    },
+    {
+        id: "c3",
+        artisanId: "a2",
+        lastMessage: "Thank you! Glad the sockets are sorted.",
+        lastAt: "2026-07-12T15:02:00.000Z",
+        unread: 0,
+    },
+    {
+        id: "c4",
+        artisanId: "a11",
+        lastMessage: "We have a Saturday morning slot if you'd like a deep clean.",
+        lastAt: "2026-08-15T11:20:00.000Z",
+        unread: 1,
+    },
+];
+
+export const INITIAL_MESSAGES: ChatMessage[] = [
+    {
+        id: "m1",
+        conversationId: "c1",
+        from: "user",
+        text: "Hi Chinedu, the leak is under the kitchen sink. Water is still dripping.",
+        createdAt: "2026-08-18T08:42:00.000Z",
+    },
+    {
+        id: "m2",
+        conversationId: "c1",
+        from: "artisan",
+        text: "Got it. I'll bring compression fittings. Is someone home now?",
+        createdAt: "2026-08-18T08:50:00.000Z",
+    },
+    {
+        id: "m3",
+        conversationId: "c1",
+        from: "user",
+        text: "Yes, I'll be here all morning.",
+        createdAt: "2026-08-18T08:52:00.000Z",
+    },
+    {
+        id: "m4",
+        conversationId: "c1",
+        from: "artisan",
+        text: "I'm about 12 minutes away. Please keep the gate open.",
+        createdAt: "2026-08-18T09:06:00.000Z",
+    },
+    {
+        id: "m5",
+        conversationId: "c2",
+        from: "artisan",
+        text: "Confirmed for tomorrow 10am. I'll bring gas just in case.",
+        createdAt: "2026-08-17T16:48:00.000Z",
+    },
+    {
+        id: "m6",
+        conversationId: "c2",
+        from: "user",
+        text: "Perfect, see you then.",
+        createdAt: "2026-08-17T16:50:00.000Z",
+    },
+    {
+        id: "m7",
+        conversationId: "c3",
+        from: "artisan",
+        text: "Thank you! Glad the sockets are sorted.",
+        createdAt: "2026-07-12T15:02:00.000Z",
+    },
+    {
+        id: "m8",
+        conversationId: "c4",
+        from: "artisan",
+        text: "We have a Saturday morning slot if you'd like a deep clean.",
+        createdAt: "2026-08-15T11:20:00.000Z",
+    },
+];
+
+export type AppNotification = {
+    id: string;
+    title: string;
+    body: string;
+    createdAt: string;
+    read: boolean;
+    type: "job" | "promo" | "message" | "system";
+    href?: string;
+};
+
+export const INITIAL_NOTIFICATIONS: AppNotification[] = [
+    {
+        id: "n1",
+        title: "Chinedu is on the way",
+        body: "Your plumber will arrive in about 12 minutes.",
+        createdAt: "2026-08-18T09:05:00.000Z",
+        read: false,
+        type: "job",
+        href: "/job/FX-4821",
+    },
+    {
+        id: "n2",
+        title: "New message",
+        body: "Chinedu Okonkwo: I'm about 12 minutes away…",
+        createdAt: "2026-08-18T09:06:00.000Z",
+        read: false,
+        type: "message",
+        href: "/chat/c1",
+    },
+    {
+        id: "n3",
+        title: "AC service confirmed",
+        body: "Ibrahim Musa accepted your booking for tomorrow at 10:00 AM.",
+        createdAt: "2026-08-17T16:45:00.000Z",
+        read: true,
+        type: "job",
+        href: "/job/FX-4790",
+    },
+    {
+        id: "n4",
+        title: "₦2,000 referral credit",
+        body: "Share FixAm with a friend and you both get ₦2,000 off.",
+        createdAt: "2026-08-15T08:00:00.000Z",
+        read: true,
+        type: "promo",
+        href: "/refer",
+    },
+];
+
+export const PAYMENT_METHODS: PaymentMethod[] = [
+    {
+        id: "pm1",
+        brand: "visa",
+        last4: "4242",
+        expiry: "08/28",
+        isDefault: true,
+    },
+    {
+        id: "pm2",
+        brand: "verve",
+        last4: "8821",
+        expiry: "01/27",
+        isDefault: false,
+    },
+];
+
+export const QUICK_REPLIES = [
+    "I'm home now",
+    "Please call when you arrive",
+    "Running 10 minutes late",
+    "What's your ETA?",
+];
+
+export function getArtisan(id: string) {
+    return ARTISANS.find((a) => a.id === id);
+}
+
+export function artisansByCategory(categoryId: string) {
+    return ARTISANS.filter((a) => a.categoryId === categoryId);
+}
+
+export const ACTIVE_JOB_STATUSES: Job["status"][] = [
+    "requested",
+    "accepted",
+    "en_route",
+    "arrived",
+    "in_progress",
+];
