@@ -1,68 +1,31 @@
-import { useTheme } from "@/theme/ThemeProvider";
-import { Ionicons } from "@expo/vector-icons";
+import { BottomTabBar } from "@/components/navigation/bottom.tabbar";
+import { useMessageStore } from "@/store/message.store";
+import { useTheme } from "@/theme/useTheme";
 import { Tabs } from "expo-router";
 
-type TabConfig = {
-    name: string;
-    title: string;
-    icon: keyof typeof Ionicons.glyphMap;
-    activeIcon?: keyof typeof Ionicons.glyphMap;
-};
-
-const TAB_CONFIG: TabConfig[] = [
-    {
-        name: "home",
-        title: "Home",
-        icon: "home-outline",
-        activeIcon: "home",
-    },
-    {
-        name: "jobs",
-        title: "Jobs",
-        icon: "briefcase-outline",
-        activeIcon: "briefcase",
-    },
-    {
-        name: "messages",
-        title: "Messages",
-        icon: "chatbubble-outline",
-        activeIcon: "chatbubble",
-    },
-    {
-        name: "profile",
-        title: "Profile",
-        icon: "person-outline",
-        activeIcon: "person",
-    },
-];
-
 export default function TabsLayout() {
-    const { colors: theme } = useTheme();
+    const { colors } = useTheme();
+    const unread = useMessageStore((s) => s.unreadCount());
+
     return (
-        <Tabs screenOptions={{
-            headerShown: false,
-            tabBarActiveTintColor: theme.primary,
-            tabBarInactiveTintColor: theme.neutral[400],
-            tabBarStyle: {
-                borderTopColor: theme.neutral[200]
-            }
-        }}>
-            {TAB_CONFIG.map(({ name, title, icon, activeIcon }) => (
-                <Tabs.Screen
-                    key={name}
-                    name={name}
-                    options={{
-                        title,
-                        tabBarIcon: ({ color, focused }) => (
-                            <Ionicons
-                                name={focused && activeIcon ? activeIcon : icon}
-                                size={22}
-                                color={color}
-                            />
-                        ),
-                    }}
-                />
-            ))}
+        <Tabs
+            tabBar={(props) => <BottomTabBar {...props} />}
+            screenOptions={{
+                headerShown: false,
+                tabBarActiveTintColor: colors.primary,
+                tabBarInactiveTintColor: colors.neutral[400],
+            }}
+        >
+            <Tabs.Screen name="home" options={{ title: "Home" }} />
+            <Tabs.Screen name="jobs" options={{ title: "Jobs" }} />
+            <Tabs.Screen
+                name="messages"
+                options={{
+                    title: "Messages",
+                    tabBarBadge: unread > 0 ? unread : undefined,
+                }}
+            />
+            <Tabs.Screen name="profile" options={{ title: "Profile" }} />
         </Tabs>
     );
 }

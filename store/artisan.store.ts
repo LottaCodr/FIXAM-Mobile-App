@@ -1,60 +1,91 @@
+import { ARTISANS } from "@/data/mock";
+import { listArtisans } from "@/features/artisans/services";
+import type { Artisan } from "@/features/artisans/types";
 import { create } from "zustand";
+
+export type SortKey = "distance" | "rating" | "price";
 
 type Filters = {
     maxDistance?: number;
     minRating?: number;
-    priceRange?: [number, number];
+    verifiedOnly?: boolean;
+    sort: SortKey;
 };
 
 type ArtisanStore = {
-    artisans: any[];
+    artisans: Artisan[];
     filters: Filters;
-    page: number;
-    hasMore: boolean;
     loading: boolean;
+    savedIds: string[];
 
     setFilters: (filters: Partial<Filters>) => void;
-    fetchArtisan: (categoryId: string) => Promise<void>;
+    resetFilters: () => void;
+    fetchArtisans: (categoryId?: string, query?: string) => Promise<void>;
+    toggleSaved: (id: string) => void;
+    isSaved: (id: string) => boolean;
+};
+
+const DEFAULT_FILTERS: Filters = { sort: "distance" };
+
+function applyFilters(list: Artisan[], filters: Filters) {
+    let next = [...list];
+    if (filters.maxDistance) {
+        next = next.filter((a) => a.distance <= filters.maxDistance!);
+    }
+    if (filters.minRating) {
+        next = next.filter((a) => a.rating >= filters.minRating!);
+    }
+    if (filters.verifiedOnly) {
+        next = next.filter((a) => a.verified);
+    }
+    next.sort((a, b) => {
+        if (filters.sort === "rating") return b.rating - a.rating;
+        if (filters.sort === "price") return a.price - b.price;
+        return a.distance - b.distance;
+    });
+    return next;
 }
 
 export const useArtisanStore = create<ArtisanStore>((set, get) => ({
     artisans: [],
-    filters: {},
-    page: 1,
-    hasMore: true,
-    loading: false,
+    filters: DEFAULT_FILTERS,
+    loading: true,
+    savedIds: ["a1", "a5"],
 
     setFilters: (filters) =>
         set((state) => ({
             filters: { ...state.filters, ...filters },
-            page: 1,
-            artisans: []
         })),
 
-    fetchArtisan: async (categoryId) => {
-        const { filters, page } = get();
+    resetFilters: () => set({ filters: DEFAULT_FILTERS }),
 
+    fetchArtisans: async (categoryId, query) => {
         set({ loading: true });
-
-        const query = new URLSearchParams({
-            categoryId,
-            page: String(page),
-            ...(filters.maxDistance && { maxDistance: String(filters.maxDistance) }),
-            ...(filters.minRating && { minRating: String(filters.minRating) })
+        const source = await listArtisans(categoryId);
+        const fallback = categoryId ? ARTISANS.filter((a) => a.categoryId === categoryId) : ARTISANS;
+        const list = source.length ? source : fallback;
+        const q = query?.trim().toLowerCase() ?? "";
+        const filtered = list.filter((a) => {
+            const matchesQuery = q
+                ? a.name.toLowerCase().includes(q) ||
+                  a.skill.toLowerCase().includes(q) ||
+                  a.categoryId.includes(q) ||
+                  a.location.toLowerCase().includes(q)
+                : true;
+            return matchesQuery;
         });
+        set({
+            artisans: applyFilters(filtered, get().filters),
+            loading: false,
+        });
+    },
 
-        const res = await fetch(`https://api.yourapp.com/artisans?${query}`);
-
-        const data = await res.json();
-
+    toggleSaved: (id) =>
         set((state) => ({
-            artisans: page === 1
-                ? data.items
-                : [...state.artisans, ...data.items],
-            hasMore: data.hasMore,
-            loading: false
-        }))
+            savedIds: state.savedIds.includes(id)
+                ? state.savedIds.filter((x) => x !== id)
+                : [...state.savedIds, id],
+        })),
 
-
-    }
-}))
+    isSaved: (id) => get().savedIds.includes(id),
+}));

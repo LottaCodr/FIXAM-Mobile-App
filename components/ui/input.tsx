@@ -1,16 +1,21 @@
-import React from "react";
+import { useTheme } from "@/theme/useTheme";
+import { Ionicons } from "@expo/vector-icons";
+import { useState } from "react";
 import {
-    View,
+    Pressable,
     Text,
     TextInput,
     TextInputProps,
+    View,
 } from "react-native";
-import { useTheme } from "@/theme/useTheme";
 
 type InputProps = TextInputProps & {
     label?: string;
     error?: string;
     helperText?: string;
+    leftIcon?: keyof typeof Ionicons.glyphMap;
+    rightIcon?: keyof typeof Ionicons.glyphMap;
+    onRightPress?: () => void;
 };
 
 export const Input = ({
@@ -18,64 +23,95 @@ export const Input = ({
     error,
     helperText,
     style,
+    leftIcon,
+    rightIcon,
+    onRightPress,
+    onFocus,
+    onBlur,
     ...props
 }: InputProps) => {
-    const {
-        colors,
-        spacing,
-        radius,
-        typography,
-    } = useTheme();
-
-    const borderColor = error ? colors.error : colors.border;
+    const { colors, spacing, radius, typography } = useTheme();
+    const [focused, setFocused] = useState(false);
+    const borderColor = error
+        ? colors.error
+        : focused
+          ? colors.primary
+          : colors.border;
 
     return (
-        <View style={{ marginBottom: spacing[10] }}>
-            {/* Label */}
-            {label && (
+        <View style={{ marginBottom: spacing[4] }}>
+            {label ? (
                 <Text
                     style={{
-                        marginBottom: spacing[8],
-                        ...typography.caption,
+                        marginBottom: spacing[2],
+                        ...typography.captionMedium,
                         color: colors.textPrimary,
-                        // fontWeight already in typography.caption; no need for override
                     }}
                 >
                     {label}
                 </Text>
-            )}
+            ) : null}
 
-            {/* Input Field */}
-            <TextInput
-                {...props}
-                style={[
-                    {
-                        height: 48,
-                        borderWidth: 1,
-                        borderColor,
-                        borderRadius: radius.md,
-                        paddingHorizontal: spacing[4],
-                        backgroundColor: colors.surface,
-                        ...typography.body,
-                        color: colors.textPrimary,
-                    },
-                    style,
-                ]}
-                placeholderTextColor={colors.textMuted}
-            />
+            <View
+                style={{
+                    height: 52,
+                    borderWidth: 1.5,
+                    borderColor,
+                    borderRadius: radius.md,
+                    backgroundColor: colors.surface,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    paddingHorizontal: spacing[3],
+                }}
+            >
+                {leftIcon ? (
+                    <Ionicons
+                        name={leftIcon}
+                        size={18}
+                        color={focused ? colors.primary : colors.textMuted}
+                        style={{ marginRight: spacing[2] }}
+                    />
+                ) : null}
+                <TextInput
+                    {...props}
+                    onFocus={(e) => {
+                        setFocused(true);
+                        onFocus?.(e);
+                    }}
+                    onBlur={(e) => {
+                        setFocused(false);
+                        onBlur?.(e);
+                    }}
+                    style={[
+                        {
+                            flex: 1,
+                            height: "100%",
+                            ...typography.body,
+                            color: colors.textPrimary,
+                            paddingVertical: 0,
+                        },
+                        style,
+                    ]}
+                    placeholderTextColor={colors.textMuted}
+                />
+                {rightIcon ? (
+                    <Pressable onPress={onRightPress} hitSlop={10}>
+                        <Ionicons name={rightIcon} size={18} color={colors.textMuted} />
+                    </Pressable>
+                ) : null}
+            </View>
 
-            {/* Helper / Error Text */}
-            {(error || helperText) && (
+            {error || helperText ? (
                 <Text
                     style={{
-                        marginTop: spacing[4],
+                        marginTop: spacing[1],
                         ...typography.caption,
                         color: error ? colors.error : colors.textSecondary,
                     }}
                 >
                     {error || helperText}
                 </Text>
-            )}
+            ) : null}
         </View>
     );
 };

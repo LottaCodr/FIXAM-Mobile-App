@@ -1,11 +1,17 @@
-import axios from "axios";
+import { env, isBackendConfigured } from "@/lib/env";
 import { useAuthStore } from "@/store/auth.store";
+import axios from "axios";
+
+const baseURL = isBackendConfigured()
+    ? `${env.supabaseUrl.replace(/\/$/, "")}/functions/v1`
+    : "https://api.fixam.ng/v1";
 
 export const api = axios.create({
-    baseURL: "https://api.fixam.ng/v1",
-    timeout: 15000,
+    baseURL,
+    timeout: 20000,
     headers: {
         "Content-Type": "application/json",
+        ...(isBackendConfigured() ? { apikey: env.supabaseAnonKey } : {}),
     },
 });
 

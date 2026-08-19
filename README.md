@@ -1,50 +1,32 @@
-# Welcome to your Expo app 👋
+# FixAm
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Lagos-first home services: book verified artisans, pay with Flutterwave, track the job.
 
-## Get started
-
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Run the app (mock mode)
 
 ```bash
-npm run reset-project
+npm install
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+No keys needed. Demo OTP is `123456`. Social login and live charges stay disabled until you add Supabase.
 
-## Learn more
+## Run with a real backend
 
-To learn more about developing your project with Expo, look at the following resources:
+1. Read [docs/GAP_ANALYSIS.md](docs/GAP_ANALYSIS.md) — everything still missing.
+2. Follow [docs/BACKEND.md](docs/BACKEND.md) — Supabase schema, RLS, Edge Functions.
+3. Follow [docs/FLUTTERWAVE.md](docs/FLUTTERWAVE.md) — checkout, webhooks, payouts, test cards.
+4. Copy `.env.example` → `.env`.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+supabase db push
+supabase secrets set FLW_SECRET_KEY=... FLW_SECRET_HASH=...
+supabase functions deploy
+npx expo start
+```
 
-## Join the community
+## Stack
 
-Join our community of developers creating universal apps.
+Expo Router · React Native · Zustand · Supabase (Postgres, Auth, Storage, Edge Functions) · Flutterwave v3
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Social login: Google, Apple, Facebook via Supabase Auth. Phone OTP via Supabase + Termii (NG).

@@ -1,7 +1,11 @@
 export const radius = {
-    sm: 6,
-    md: 10,
-    lg: 14,
-    xl: 20,
+    xs: 8,
+    sm: 10,
+    md: 14,
+    lg: 18,
+    xl: 24,
+    xxl: 32,
     full: 999,
 };
+
+export type Radius = typeof radius;
